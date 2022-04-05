@@ -6,6 +6,10 @@ const App: FC = () => {
 	const [value, setValue] = useState('');
 	const [todos, setTodos] = useState<ITodo[]>([]);
 
+	const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
+		setValue(e.target.value);
+	};
+
 	const addTodo = () => {
 		if (value) {
 			setTodos([
@@ -23,7 +27,7 @@ const App: FC = () => {
 	return (
 		<div>
 			<div>
-				<input value={value} onChange={e => setValue(e.target.value)} />
+				<input value={value} onChange={handleChange} />
 				<button onClick={addTodo}>Add todo</button>
 			</div>
 			<TodoList items={todos} />
