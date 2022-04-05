@@ -6,6 +6,8 @@ const App: FC = () => {
 	const [value, setValue] = useState('');
 	const [todos, setTodos] = useState<ITodo[]>([]);
 
+	const inputRef = useRef<HTMLInputElement>(null);
+
 	const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
 		setValue(e.target.value);
 	};
@@ -24,10 +26,26 @@ const App: FC = () => {
 		setValue('');
 	};
 
+	useEffect(() => {
+		if (inputRef.current) {
+			inputRef.current.focus();
+		}
+	}, []);
+
+	const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = e => {
+		if (e.key === 'Enter') {
+			addTodo();
+		}
+	};
 	return (
 		<div>
 			<div>
-				<input value={value} onChange={handleChange} />
+				<input
+					value={value}
+					onChange={handleChange}
+					onKeyDown={handleKeyDown}
+					ref={inputRef}
+				/>
 				<button onClick={addTodo}>Add todo</button>
 			</div>
 			<TodoList items={todos} />
