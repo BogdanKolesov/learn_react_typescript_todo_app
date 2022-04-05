@@ -26,11 +26,24 @@ const App: FC = () => {
 		setValue('');
 	};
 
-	const removeTodo =(id:number): void {}
+	const removeTodo = (id: number): void => {
+		setTodos(todos.filter(todo => todo.id !== id));
+	};
 
-	const toggleTodo = (id:number): void {}
+	const toggleTodo = (id: number): void => {
+		setTodos(
+			todos.map(todo => {
+				if (todo.id !== id) return todo;
 
- 	useEffect(() => {
+				return {
+					...todo,
+					complete: !todo.complete,
+				};
+			})
+		);
+	};
+
+	useEffect(() => {
 		if (inputRef.current) {
 			inputRef.current.focus();
 		}
@@ -52,7 +65,7 @@ const App: FC = () => {
 				/>
 				<button onClick={addTodo}>Add todo</button>
 			</div>
-			<TodoList items={todos} removeTodo={removeTodo} toggleTodo={toggleTodo}/>
+			<TodoList items={todos} removeTodo={removeTodo} toggleTodo={toggleTodo} />
 		</div>
 	);
 };
