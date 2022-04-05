@@ -26,7 +26,11 @@ const App: FC = () => {
 		setValue('');
 	};
 
-	useEffect(() => {
+	const removeTodo =(id:number): void {}
+
+	const toggleTodo = (id:number): void {}
+
+ 	useEffect(() => {
 		if (inputRef.current) {
 			inputRef.current.focus();
 		}
@@ -48,7 +52,7 @@ const App: FC = () => {
 				/>
 				<button onClick={addTodo}>Add todo</button>
 			</div>
-			<TodoList items={todos} />
+			<TodoList items={todos} removeTodo={removeTodo} toggleTodo={toggleTodo}/>
 		</div>
 	);
 };
